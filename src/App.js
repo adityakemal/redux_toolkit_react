@@ -1,23 +1,46 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { increment,decrement,incrementByAmount } from './redux/counter'
+import { getUser } from './redux/user'
 
 function App() {
+  //ngambil dari reducer
+  const {value} = useSelector(state=> state.counter)
+  const {userList} = useSelector(state=> state.user)
+  const {status} = useSelector(state=> state.user)
+
+  //cara ngambil action
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    // dispatch(getUser())
+  },[])
+
+  console.log(userList)
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>{value}</h1>
+      <button onClick={()=>dispatch(increment())}>Tambah</button>
+      <button onClick={()=>dispatch(decrement())}>Kurang</button>
+      <button onClick={()=>dispatch(incrementByAmount(33))}>Tambah 33</button>
+      <br/>
+      <br/>
+      <h1>USERS</h1>
+      <ol>
+        { 
+          userList.length !== 0 ?
+          userList.map((res,i)=>
+            <li key={i}>{res.name}</li>
+          )
+          : status
+        }
+      </ol>
+      <button onClick={()=>dispatch(getUser())}>get user</button>
+
+      
     </div>
   );
 }
