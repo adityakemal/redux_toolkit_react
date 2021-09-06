@@ -8,8 +8,9 @@ import { getUser } from './redux/user'
 function App() {
   //ngambil dari reducer
   const {value} = useSelector(state=> state.counter)
-  const {userList} = useSelector(state=> state.user)
-  const {status} = useSelector(state=> state.user)
+  const {userList, status} = useSelector(state=> state.user)
+
+  const {error} = useSelector(state=> state.user)
 
   //cara ngambil action
   const dispatch = useDispatch()
@@ -18,7 +19,7 @@ function App() {
     // dispatch(getUser())
   },[])
 
-  console.log(userList)
+  console.log(error)
   
   return (
     <div className="App">
